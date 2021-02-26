@@ -2,11 +2,9 @@
 
 abstract class Employee
 {
-    abstract public function isPayDay(): bool;
-
     abstract public function calculatePay(): Money;
     
-    abstract public function deliverPay(Money $pay): void;
+    abstract public function deliverPay(Money $money): void;
 }
 
 interface EmployeeFactory
@@ -30,7 +28,7 @@ class EmployeeFactoryImpl
     }
 }
 
-class CommissionedEmployee implements Employee
+class CommissionedEmployee extends Employee
 {
     public function isPayDay(): bool
     {
@@ -44,11 +42,18 @@ class CommissionedEmployee implements Employee
         return $money;
     }
 
-    public function deliverPay(Money $pay): void
+    /**
+     * [deliverPay description]
+     *
+     * @param   Money  $money  [$money description]
+     *
+     * @return  void           [return description]
+     */
+    public function deliverPay(Money $money): void
     {
+        $this->calculatePay($money);
         // $pay->mail = 1;
         // send payment
-        return;
     }
 }
 
